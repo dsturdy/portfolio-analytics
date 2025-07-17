@@ -1,5 +1,5 @@
 Python Portfolio Factor Attribution
-Context: Monthly attribution of three First Eagle funds (“Global,” “Overseas,” “US”) versus a 20-factor macro/style library.
+Context: Monthly attribution of three example funds (“Global,” “Overseas,” “US”) versus a 20-factor macro/style library.
 
 Tech Stack
 Python 3.11 with pandas, numpy, statsmodels, yfinance
@@ -25,7 +25,7 @@ Static OLS Attribution (Full Sample)
 
 Runs cross-sectional OLS per fund to estimate α, R², and β coefficients for all 20 factors.
 
-Outputs first_eagle_static_multifactor_betas.csv.
+Outputs example_static_multifactor_betas.csv.
 
 Rolling Window OLS (Research-Grade)
 
