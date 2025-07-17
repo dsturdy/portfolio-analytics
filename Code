@@ -7,7 +7,7 @@ import warnings
 warnings.simplefilter(action='ignore', category=FutureWarning)
 
 # ----- CONFIG -----
-START = "2000-01-01"
+START = "1990-01-01"
 FUNDS = {
     "Global Fund":   "SGIIX",
     "Overseas Fund": "SGOIX",
@@ -61,7 +61,7 @@ rename_map = {
     "UUP":  "FX",
     "TIP":  "Real Yields",
     "SVXY": "Equity Short Vol",
-    "CWY":  "FX Carry",  # TODO: Replace with your own FX carry series if available
+    "CWY":  "FX Carry",  # TODO: Create own FX Carry series 
     "USMV": "Low Risk",
     "MTUM": "Momentum",
     "QUAL": "Quality",
@@ -70,7 +70,7 @@ rename_map = {
     "GLD":  "Gold",
     "USO":  "Oil",
     "VIXY": "Volatility"
-    # ACWI intentionally not renamed
+    
 }
 f = raw_rets.rename(columns=rename_map)
 
@@ -146,7 +146,7 @@ for fund in fund_rets:
 static_df = pd.DataFrame(static_results).set_index("Fund").round(3)
 print("\n=== STATIC MULTI-FACTOR EXPOSURES (FULL SAMPLE) ===")
 print(static_df)
-static_df.to_csv("first_eagle_static_multifactor_betas.csv")
+static_df.to_csv("example_static_multifactor_betas.csv")
 
 # ----- 6) CUSTOM ROLLING OLS (robust, research-grade) -----
 def rolling_ols_loop(y, X, window):
@@ -163,7 +163,7 @@ def rolling_ols_loop(y, X, window):
         idxs.append(y.index[i])
     return pd.DataFrame(betas, index=idxs, columns=X.columns)
 
-window = 36  # Adjust as desired
+window = 36  # Can be adjusted, rolling 36 months is a good start
 rolling_betas_all = []
 
 for fund in fund_rets:
@@ -197,7 +197,7 @@ if rolling_betas_all:
     else:
         print("\nNo valid rolling betas (all windows contain NaNs). Try reducing the window size or checking for missing data in factors.")
 
-    rolling_betas_df.to_csv("first_eagle_rolling_multifactor_betas.csv")
+    rolling_betas_df.to_csv("example_rolling_multifactor_betas.csv")
 else:
     print("\nNo rolling betas calculated (not enough data).")
 
